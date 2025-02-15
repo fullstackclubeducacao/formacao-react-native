@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 7,
   },
+
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
 });
 
 export default styles;

@@ -49,11 +49,13 @@ function Home({ navigation }) {
         }}
       />
 
-      <Button
-        title={showCompletedItems ? 'Mostrar todos' : 'Mostrar apenas concluidos'}
-        onPress={handleShowCompletedItems}
-      />
-      <Button title="Adicionar" onPress={addItem} />
+      <View style={styles.buttonsContainer}>
+        <Button
+          title={showCompletedItems ? 'Mostrar todos' : 'Mostrar apenas concluidos'}
+          onPress={handleShowCompletedItems}
+        />
+        {!showCompletedItems ? <Button title="Adicionar" onPress={addItem} /> : null}
+      </View>
     </SafeAreaView>
   );
 }

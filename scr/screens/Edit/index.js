@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TextInput } from 'react-native';
 
 import { useAtomValue } from 'jotai';
 import atoms from '../../atoms';
 import useToDoList from '../../hooks/useToDoList';
+import styles from './styles';
 
 function Edit({ navigation, route }) {
-  const itemsToComplete = useAtomValue(atoms.items);
-
   const { params } = route;
 
   const { item, index } = params;
 
   const { editItem } = useToDoList({});
 
+  const [name, setName] = useState(item.name);
+  const [description, setDescription] = useState(item.description);
+
   const handleEdit = () => {
     editItem({
       index: index,
       newContent: {
-        name: item.name,
-        description: `${new Date().toISOString()} - ${item.description}`,
+        name: name,
+        description: description,
       },
     });
 
@@ -28,12 +30,21 @@ function Edit({ navigation, route }) {
   };
 
   return (
-    <View>
-      <Text>{item.name}</Text>
-      <Text>{item.description}</Text>
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.input} value={name} onChangeText={setName} placeholder="Nome" />
+        <TextInput
+          style={styles.input}
+          value={description}
+          onChangeText={setDescription}
+          placeholder="Descrição"
+        />
+      </View>
 
-      <Button title="Atualizar" onPress={handleEdit} />
-      <Button title="Cancelar" onPress={navigation.goBack} />
+      <View style={styles.buttonsContainer}>
+        <Button title="Atualizar" onPress={handleEdit} />
+        <Button title="Cancelar" onPress={navigation.goBack} />
+      </View>
     </View>
   );
 }
