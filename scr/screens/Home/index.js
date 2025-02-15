@@ -8,6 +8,14 @@ import styles from './styles';
 function Home({ navigation }) {
   const [items, setItems] = useState([]);
 
+  const [completedItems, setCompletedItems] = useState([]);
+
+  const [showCompletedItems, setShowCompletedItems] = useState(false);
+
+  const handleShowCompletedItems = () => {
+    setShowCompletedItems(!showCompletedItems);
+  };
+
   const addItem = () => {
     setItems((s) => {
       const newItem = {
@@ -24,16 +32,86 @@ function Home({ navigation }) {
     });
   };
 
+  const completeItem = ({ item, index }) => {
+    if (item.done) {
+      setItems((s) => {
+        const oldState = [...s];
+
+        const itemToAdd = {
+          ...item,
+          done: false,
+        };
+
+        oldState.push(itemToAdd);
+
+        return oldState;
+      });
+
+      setCompletedItems((s) => {
+        const oldState = [...s];
+
+        oldState.splice(index, 1);
+
+        return oldState;
+      });
+
+      return;
+    }
+
+    setItems((s) => {
+      const oldState = [...s];
+
+      oldState.splice(index, 1);
+
+      return oldState;
+    });
+
+    setCompletedItems((s) => {
+      const oldState = [...s];
+
+      const itemToAdd = {
+        ...item,
+        done: true,
+      };
+
+      oldState.push(itemToAdd);
+
+      return oldState;
+    });
+  };
+  const removeItem = ({ index }) => {
+    setItems((s) => {
+      const oldState = [...s];
+
+      oldState.splice(index, 1);
+
+      return oldState;
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         style={styles.flatListContent}
         ListEmptyComponent={EmptyList}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        data={items}
-        renderItem={({item}) => {return <ItemList item={item} />}}
+        data={showCompletedItems ? completedItems : items}
+        renderItem={({ item, index }) => {
+          return (
+            <ItemList
+              index={index}
+              removeItemPress={removeItem}
+              completeItemPress={completeItem}
+              item={item}
+            />
+          );
+        }}
       />
 
+      <Button
+        title={showCompletedItems ? 'Mostrar todos' : 'Mostrar apenas concluidos'}
+        onPress={handleShowCompletedItems}
+      />
       <Button title="Adicionar" onPress={addItem} />
     </SafeAreaView>
   );

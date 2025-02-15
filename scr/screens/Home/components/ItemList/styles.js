@@ -2,8 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
   container: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
     backgroundColor: '#FFF',
     minHeight: 82,
     borderRadius: 15,
@@ -17,7 +18,15 @@ const style = StyleSheet.create({
   },
 
   textContainer: {
+    flex: 6,
     gap: 5,
+  },
+
+  actionsContainer: {
+    flex: 4,
+    gap: 25,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   },
 });
 
