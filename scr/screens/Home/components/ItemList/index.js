@@ -10,7 +10,7 @@ const iconComplete = require('../../../../assets/icons/CheckCircle.png');
 function ActionButton({ onPress, source }) {
   return (
     <Pressable onPress={onPress}>
-      <Image source={source} style={{ width: 24, height: 24 }} resizeMode='contain' />
+      <Image source={source} style={{ width: 24, height: 24 }} resizeMode="contain" />
     </Pressable>
   );
 }
@@ -19,7 +19,7 @@ function ItemList({ item, index, completeItemPress, removeItemPress }) {
   const navigation = useNavigation();
 
   const handleClickEdit = () => {
-    navigation.navigate('Editar', { item });
+    navigation.navigate('Editar', { item, index });
   };
 
   const handleClickRemove = () => {

@@ -1,26 +1,39 @@
 import React from 'react';
 
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 import { useAtomValue } from 'jotai';
 import atoms from '../../atoms';
+import useToDoList from '../../hooks/useToDoList';
 
-function Edit({ route }) {
+function Edit({ navigation, route }) {
   const itemsToComplete = useAtomValue(atoms.items);
 
   const { params } = route;
 
-  const { item } = params;
+  const { item, index } = params;
 
-  console.log('item: ', item);
+  const { editItem } = useToDoList({});
+
+  const handleEdit = () => {
+    editItem({
+      index: index,
+      newContent: {
+        name: item.name,
+        description: `${new Date().toISOString()} - ${item.description}`,
+      },
+    });
+
+    navigation.goBack();
+  };
 
   return (
     <View>
-      <Text>Edit</Text>
       <Text>{item.name}</Text>
       <Text>{item.description}</Text>
 
-      <Text>{`Items para completar: ${itemsToComplete.length}`}</Text>
+      <Button title="Atualizar" onPress={handleEdit} />
+      <Button title="Cancelar" onPress={navigation.goBack} />
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import atoms from '../../atoms';
 
-const useToDoList = ({ scrollToIndex }) => {
+const useToDoList = ({ scrollToIndex = () => {} }) => {
   const [items, setItems] = useAtom(atoms.items);
 
   const [completedItems, setCompletedItems] = useAtom(atoms.completedItems);
@@ -86,12 +86,26 @@ const useToDoList = ({ scrollToIndex }) => {
     });
   };
 
+  const editItem = ({ index, newContent }) => {
+    setItems((s) => {
+      const oldState = [...s];
+
+      oldState[index] = {
+        ...oldState[index],
+        ...newContent,
+      };
+
+      return oldState;
+    });
+  };
+
   return {
     items,
     completedItems,
     addItem,
     completeItem,
     removeItem,
+    editItem,
   };
 };
 
