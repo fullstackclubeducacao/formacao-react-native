@@ -1,0 +1,98 @@
+import { useAtom } from 'jotai';
+import atoms from '../../atoms';
+
+const useToDoList = ({ scrollToIndex }) => {
+  const [items, setItems] = useAtom(atoms.items);
+
+  const [completedItems, setCompletedItems] = useAtom(atoms.completedItems);
+
+  const addItem = () => {
+    let index = 0;
+
+    setItems((s) => {
+      const newItem = {
+        name: 'Item ' + (s.length + 1),
+        description: 'Description ' + (s.length + 1),
+        done: false,
+      };
+
+      const oldState = [...s];
+
+      oldState.push(newItem);
+
+      index = oldState.length - 1;
+
+      scrollToIndex({ index });
+
+      return oldState;
+    });
+  };
+
+  const completeItem = ({ item, index }) => {
+    if (item.done) {
+      setItems((s) => {
+        const oldState = [...s];
+
+        const itemToAdd = {
+          ...item,
+          done: false,
+        };
+
+        oldState.push(itemToAdd);
+
+        return oldState;
+      });
+
+      setCompletedItems((s) => {
+        const oldState = [...s];
+
+        oldState.splice(index, 1);
+
+        return oldState;
+      });
+
+      return;
+    }
+
+    setItems((s) => {
+      const oldState = [...s];
+
+      oldState.splice(index, 1);
+
+      return oldState;
+    });
+
+    setCompletedItems((s) => {
+      const oldState = [...s];
+
+      const itemToAdd = {
+        ...item,
+        done: true,
+      };
+
+      oldState.push(itemToAdd);
+
+      return oldState;
+    });
+  };
+
+  const removeItem = ({ index }) => {
+    setItems((s) => {
+      const oldState = [...s];
+
+      oldState.splice(index, 1);
+
+      return oldState;
+    });
+  };
+
+  return {
+    items,
+    completedItems,
+    addItem,
+    completeItem,
+    removeItem,
+  };
+};
+
+export default useToDoList;

@@ -4,15 +4,12 @@ import { View, FlatList, Text, Button, SafeAreaView } from 'react-native';
 import ItemList from './components/ItemList';
 import EmptyList from './components/EmptyList';
 import styles from './styles';
+import { useAtom } from 'jotai';
+import atoms from '../../atoms';
+import useToDoList from '../../hooks/useToDoList';
 
 function Home({ navigation }) {
   const flatListRef = useRef(null);
-
-  const [items, setItems] = useState([]);
-
-  const [completedItems, setCompletedItems] = useState([]);
-
-  const [showCompletedItems, setShowCompletedItems] = useState(false);
 
   const handleShowCompletedItems = () => {
     setShowCompletedItems(!showCompletedItems);
@@ -24,85 +21,11 @@ function Home({ navigation }) {
     }, 100);
   };
 
-  const addItem = () => {
-    let index = 0;
+  const { completedItems, items, addItem, completeItem, removeItem } = useToDoList({
+    scrollToIndex,
+  });
 
-    setItems((s) => {
-      const newItem = {
-        name: 'Item ' + (s.length + 1),
-        description: 'Description ' + (s.length + 1),
-        done: false,
-      };
-
-      const oldState = [...s];
-
-      oldState.push(newItem);
-
-      index = oldState.length - 1;
-
-      scrollToIndex({ index });
-
-      return oldState;
-    });
-  };
-
-  const completeItem = ({ item, index }) => {
-    if (item.done) {
-      setItems((s) => {
-        const oldState = [...s];
-
-        const itemToAdd = {
-          ...item,
-          done: false,
-        };
-
-        oldState.push(itemToAdd);
-
-        return oldState;
-      });
-
-      setCompletedItems((s) => {
-        const oldState = [...s];
-
-        oldState.splice(index, 1);
-
-        return oldState;
-      });
-
-      return;
-    }
-
-    setItems((s) => {
-      const oldState = [...s];
-
-      oldState.splice(index, 1);
-
-      return oldState;
-    });
-
-    setCompletedItems((s) => {
-      const oldState = [...s];
-
-      const itemToAdd = {
-        ...item,
-        done: true,
-      };
-
-      oldState.push(itemToAdd);
-
-      return oldState;
-    });
-  };
-
-  const removeItem = ({ index }) => {
-    setItems((s) => {
-      const oldState = [...s];
-
-      oldState.splice(index, 1);
-
-      return oldState;
-    });
-  };
+  const [showCompletedItems, setShowCompletedItems] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
