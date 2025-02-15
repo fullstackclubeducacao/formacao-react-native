@@ -15,13 +15,17 @@ function Home({ navigation }) {
     setShowCompletedItems(!showCompletedItems);
   };
 
+  const handleAdd = () => {
+    navigation.navigate('Adicionar');
+  };
+
   const scrollToIndex = ({ index }) => {
     setTimeout(() => {
       flatListRef.current.scrollToEnd({ animated: true });
     }, 100);
   };
 
-  const { completedItems, items, addItem, completeItem, removeItem } = useToDoList({
+  const { completedItems, items, completeItem, removeItem } = useToDoList({
     scrollToIndex,
   });
 
@@ -54,7 +58,7 @@ function Home({ navigation }) {
           title={showCompletedItems ? 'Mostrar todos' : 'Mostrar apenas concluidos'}
           onPress={handleShowCompletedItems}
         />
-        {!showCompletedItems ? <Button title="Adicionar" onPress={addItem} /> : null}
+        {!showCompletedItems ? <Button title="Adicionar" onPress={handleAdd} /> : null}
       </View>
     </SafeAreaView>
   );

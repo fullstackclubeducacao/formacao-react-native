@@ -6,13 +6,13 @@ const useToDoList = ({ scrollToIndex = () => {} }) => {
 
   const [completedItems, setCompletedItems] = useAtom(atoms.completedItems);
 
-  const addItem = () => {
+  const addItem = ({name, description}) => {
     let index = 0;
 
     setItems((s) => {
       const newItem = {
-        name: 'Item ' + (s.length + 1),
-        description: 'Description ' + (s.length + 1),
+        name: name,
+        description: description,
         done: false,
       };
 
