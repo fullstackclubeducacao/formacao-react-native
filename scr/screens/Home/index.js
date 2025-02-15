@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, FlatList, Text, Button, SafeAreaView } from 'react-native';
 
 import ItemList from './components/ItemList';
@@ -6,6 +6,8 @@ import EmptyList from './components/EmptyList';
 import styles from './styles';
 
 function Home({ navigation }) {
+  const flatListRef = useRef(null);
+
   const [items, setItems] = useState([]);
 
   const [completedItems, setCompletedItems] = useState([]);
@@ -16,7 +18,15 @@ function Home({ navigation }) {
     setShowCompletedItems(!showCompletedItems);
   };
 
+  const scrollToIndex = ({ index }) => {
+    setTimeout(() => {
+      flatListRef.current.scrollToEnd({ animated: true });
+    }, 100);
+  };
+
   const addItem = () => {
+    let index = 0;
+
     setItems((s) => {
       const newItem = {
         name: 'Item ' + (s.length + 1),
@@ -27,6 +37,10 @@ function Home({ navigation }) {
       const oldState = [...s];
 
       oldState.push(newItem);
+
+      index = oldState.length - 1;
+
+      scrollToIndex({ index });
 
       return oldState;
     });
@@ -79,6 +93,7 @@ function Home({ navigation }) {
       return oldState;
     });
   };
+
   const removeItem = ({ index }) => {
     setItems((s) => {
       const oldState = [...s];
@@ -92,9 +107,12 @@ function Home({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        ref={flatListRef}
+        showsVerticalScrollIndicator={false}
         style={styles.flatListContent}
         ListEmptyComponent={EmptyList}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        ItemSeparatorComponent={() => <View style={{ height: 21 }} />}
+        ListFooterComponent={() => <View style={{ height: 21 }} />}
         data={showCompletedItems ? completedItems : items}
         renderItem={({ item, index }) => {
           return (

@@ -10,7 +10,7 @@ const iconComplete = require('../../../../assets/icons/CheckCircle.png');
 function ActionButton({ onPress, source }) {
   return (
     <Pressable onPress={onPress}>
-      <Image source={source} />
+      <Image source={source} style={{ width: 24, height: 24 }} resizeMode='contain' />
     </Pressable>
   );
 }
