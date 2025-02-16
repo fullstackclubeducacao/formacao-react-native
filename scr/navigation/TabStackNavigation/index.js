@@ -6,11 +6,14 @@ import HomeStackNavigation from '../HomeStackNavigation';
 
 import Tickets from '../../screens/Tickets';
 import Favorites from '../../screens/Favorites';
+import Tabbar from './Tabbar';
 
 const TabStack = createBottomTabNavigator();
 function TabStackNavigation() {
   return (
-    <TabStack.Navigator >
+    <TabStack.Navigator
+      tabBar={Tabbar}
+    >
       <TabStack.Screen
         name="HomeStack"
         component={HomeStackNavigation}
