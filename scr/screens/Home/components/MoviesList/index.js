@@ -14,10 +14,6 @@ function MoviesList({ nowPlayingMovies }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TitleSecondary>Now Showing</TitleSecondary>
-      </View>
-
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
