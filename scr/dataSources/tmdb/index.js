@@ -12,14 +12,11 @@ let config = {
 };
 
 const getNowPlaying = async () => {
-  console.log('getNowPlaying axios');
-
   try {
     const response = await axios.request(config);
-    console.log(JSON.stringify(response.data));
+
     return response.data;
   } catch (error) {
-    console.log(error);
     throw new Error('Failed to get now playing');
   }
 };

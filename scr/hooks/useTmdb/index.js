@@ -1,13 +1,18 @@
+import { useAtom } from 'jotai';
+import atoms from '../../atoms';
 import tmdbDataSource from '../../dataSources/tmdb';
 
 const useTmdb = () => {
-  getNowPlaying = async () => {
-    console.log('getNowPlaying');
+  const [nowPlayingMovies, setNowPlayingMovies] = useAtom(atoms.nowPlayingMovies);
 
-    return tmdbDataSource.getNowPlaying();
+  const getNowPlaying = async () => {
+    const response = await tmdbDataSource.getNowPlaying();
+
+    setNowPlayingMovies(response.results);
   };
 
   return {
+    nowPlayingMovies,
     getNowPlaying,
   };
 };

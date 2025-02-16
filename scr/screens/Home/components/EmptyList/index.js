@@ -3,8 +3,8 @@ import { Text, View } from 'react-native';
 
 function EmptyList() {
   return (
-    <View>
-      <Text>Adicione uma atividade para começar!!!</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Nenhum filme encontrado!!!</Text>
     </View>
   );
 }

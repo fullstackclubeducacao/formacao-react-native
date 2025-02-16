@@ -24,8 +24,6 @@ const loadData = async ({ key }) => {
 
     const dataToReturn = data != null ? JSON.parse(data) : null;
 
-    console.log('dataToReturn: ', dataToReturn);
-
     return dataToReturn;
   } catch (err) {
     console.error(`Failed to load data using key ${key} - ${err}`);
