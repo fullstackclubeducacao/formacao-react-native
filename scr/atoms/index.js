@@ -1,15 +1,11 @@
 import { atom } from 'jotai';
 
-const items = atom([]);
-
-const completedItems = atom([]);
-
-const nowPlayingMovies = atom([])
+const nowPlayingMovies = atom([]);
+const popularMovies = atom([]);
 
 const atoms = {
-  items,
-  completedItems,
-  nowPlayingMovies
+  nowPlayingMovies,
+  popularMovies,
 };
 
 export default atoms;
