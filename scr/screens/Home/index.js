@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, FlatList, Text, Button, SafeAreaView } from 'react-native';
 
 import ItemList from './components/ItemList';
@@ -7,9 +7,12 @@ import styles from './styles';
 import { useAtom } from 'jotai';
 import atoms from '../../atoms';
 import useToDoList from '../../hooks/useToDoList';
+import useTmdb from '../../hooks/useTmdb';
 
 function Home({ navigation }) {
   const flatListRef = useRef(null);
+
+  const { getNowPlaying } = useTmdb();
 
   const handleShowCompletedItems = () => {
     setShowCompletedItems(!showCompletedItems);
@@ -30,6 +33,10 @@ function Home({ navigation }) {
   });
 
   const [showCompletedItems, setShowCompletedItems] = useState(false);
+
+  useEffect(() => {
+    getNowPlaying();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
