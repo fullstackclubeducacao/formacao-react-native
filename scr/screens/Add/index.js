@@ -25,7 +25,9 @@ function Add({ navigation, route }) {
       description: description,
     });
 
-    navigation.goBack();
+    navigation.navigate('HomeStack', {
+      screen: 'Inicio',
+    });
   };
 
   return (
