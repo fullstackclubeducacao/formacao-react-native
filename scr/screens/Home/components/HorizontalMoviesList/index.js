@@ -7,7 +7,7 @@ import EmptyList from '../EmptyList';
 import MovieItem from '../MovieItem';
 import Separator from '../../../../components/separator';
 
-function MoviesList({ nowPlayingMovies }) {
+function HorizontalMoviesList({ nowPlayingMovies }) {
   const renderItem = ({ item, index }) => {
     return <MovieItem item={item} index={index} />;
   };
@@ -28,4 +28,4 @@ function MoviesList({ nowPlayingMovies }) {
   );
 }
 
-export default MoviesList;
+export default HorizontalMoviesList;

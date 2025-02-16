@@ -3,7 +3,7 @@ import { FlatList, View } from 'react-native';
 import PopularMovieItem from '../PopularMovieItem';
 import Separator from '../../../../components/separator';
 
-function PopularMoviesList({ popularMoviesData }) {
+function VerticalMoviesList({ popularMoviesData }) {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
@@ -16,4 +16,4 @@ function PopularMoviesList({ popularMoviesData }) {
   );
 }
 
-export default PopularMoviesList;
+export default VerticalMoviesList;
