@@ -16,100 +16,31 @@ const useTmdb = () => {
   const getNowPlaying = async () => {
     const response = await tmdbDataSource.getNowPlaying();
 
+    const { results } = response;
+
     updateSectionedMovies({
       title: 'Now Showing',
-      data: response.results,
+      data: results,
       orientation: 'horizontal',
     });
 
-    setNowPlayingMovies(response.results);
+    setNowPlayingMovies(results);
   };
 
   const getPopularMovies = async () => {
-    const mock = [
-      {
-        title: 'movie 1',
-      },
-      {
-        title: 'movie 2',
-      },
-      {
-        title: 'movie 3',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-      {
-        title: 'movie 4',
-      },
-      {
-        title: 'movie 5',
-      },
-      {
-        title: 'movie 6',
-      },
-    ];
+    const response = await tmdbDataSource.getPopularMovies();
 
-    setPopularMovies(mock);
+    const { results } = response;
+
+    setPopularMovies(results);
 
     setTimeout(() => {
       updateSectionedMovies({
         title: 'Popular Movies',
-        data: mock,
+        data: results,
         orientation: 'vertical',
       });
-    }, 500)
+    }, 500);
   };
 
   return {
