@@ -1,16 +1,24 @@
 import React from 'react';
 
 import starIcon from '../../../../assets/icons/Star.png';
-import { FlatList, Image, View } from 'react-native';
+import { FlatList, Image, Pressable, View } from 'react-native';
 import { Paragraph, Title } from '../../../../components/text';
 import useTmdb from '../../../../hooks/useTmdb';
 import Separator from '../../../../components/separator';
+import { useNavigation } from '@react-navigation/native';
 
 function PopularMovieItem({ item, index }) {
   const { genres } = useTmdb();
 
+  const { navigate } = useNavigation();
+
+  const goToDetail = () => {
+    navigate('MovieDetail', { item: item });
+  };
+
   return (
-    <View
+    <Pressable
+      onPress={goToDetail}
       style={{
         height: 128,
         backgroundColor: '#FFF',
@@ -87,7 +95,7 @@ function PopularMovieItem({ item, index }) {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

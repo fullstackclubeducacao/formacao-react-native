@@ -3,10 +3,14 @@ import React from 'react';
 import { View } from 'react-native';
 import { Title } from '../../components/text';
 
-function MovieDetail() {
+function MovieDetail({ route }) {
+  const { params } = route;
+  const { item } = params;
+
   return (
     <View>
-      <Title>MovieDetail</Title>
+      <Title>{item.title}</Title>
+      <Title>{item.id}</Title>
     </View>
   );
 }

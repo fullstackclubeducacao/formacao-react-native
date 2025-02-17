@@ -1,12 +1,19 @@
 import React from 'react';
 
 import starIcon from '../../../../assets/icons/Star.png';
-import { Image, View } from 'react-native';
+import { Image, Pressable, View } from 'react-native';
 import { Paragraph, Title } from '../../../../components/text';
+import { useNavigation } from '@react-navigation/native';
 
 function MovieItem({ item, index }) {
+  const { navigate } = useNavigation();
+
+  const goToDetail = () => {
+    navigate('MovieDetail', { item: item });
+  };
+  
   return (
-    <View style={{ width: 143, height: 283 }}>
+    <Pressable onPress={goToDetail} style={{ width: 143, height: 283 }}>
       <View
         style={{
           borderRadius: 5,
@@ -39,8 +46,8 @@ function MovieItem({ item, index }) {
           <Paragraph>{`${Number(item.vote_average).toFixed(1)}/10 IMDb`}</Paragraph>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
-export default MovieItem
+export default MovieItem;

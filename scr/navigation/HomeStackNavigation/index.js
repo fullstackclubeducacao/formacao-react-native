@@ -11,7 +11,7 @@ function HomeStackNavigation() {
   return (
     <HomeStack.Navigator initialRouteName="Inicio">
       <HomeStack.Screen name="Inicio" component={Home} />
-      <HomeStack.Screen name="Movie Detail" component={MovieDetail} />
+      <HomeStack.Screen name="MovieDetail" component={MovieDetail} />
     </HomeStack.Navigator>
   );
 }
