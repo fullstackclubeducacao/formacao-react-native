@@ -6,6 +6,7 @@ const paths = {
     '/discover/movie?include_adult=false&include_video=true&language=pt-BR&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}',
   popularMovies:
     '/discover/movie?include_adult=false&include_video=false&language=pt-BR&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200',
+  genres: '/genre/movie/list?language=pt-BR',
 };
 
 const makeRequest = ({ path, method }) => {
@@ -50,9 +51,23 @@ const getPopularMovies = async () => {
   }
 };
 
+const getGenres = async () => {
+  try {
+    const response = await makeRequest({
+      path: paths.genres,
+      method: 'get',
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to get now playing');
+  }
+};
+
 const tmdbDataSource = {
   getNowPlaying,
   getPopularMovies,
+  getGenres,
 };
 
 export default tmdbDataSource;

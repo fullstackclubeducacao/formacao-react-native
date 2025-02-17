@@ -8,6 +8,7 @@ const useTmdb = () => {
   const [popularMovies, setPopularMovies] = useAtom(atoms.popularMovies);
 
   const [sectionedMovies, setSectionedMovies] = useState([]);
+  const [genres, setGenres] = useAtom(atoms.movieGenres);
 
   const updateSectionedMovies = (section) => {
     setSectionedMovies((s) => [...s, section]);
@@ -27,7 +28,17 @@ const useTmdb = () => {
     setNowPlayingMovies(results);
   };
 
+  const getGenres = async () => {
+    const response = await tmdbDataSource.getGenres();
+
+    console.log("response: ", response)
+
+    setGenres(response.genres);
+  };
+
   const getPopularMovies = async () => {
+    getGenres();
+
     const response = await tmdbDataSource.getPopularMovies();
 
     const { results } = response;
@@ -49,6 +60,7 @@ const useTmdb = () => {
     popularMovies,
     getPopularMovies,
     sectionedMovies,
+    genres,
   };
 };
 

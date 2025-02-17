@@ -8,8 +8,8 @@ function VerticalMoviesList({ popularMoviesData }) {
     <View style={{ flex: 1 }}>
       <FlatList
         data={popularMoviesData}
-        ItemSeparatorComponent={Separator({ size: 21, direction: 'vertical' })}
-        renderItem={({ item }) => <PopularMovieItem movie={item} />}
+        ItemSeparatorComponent={Separator({ size: 16, direction: 'vertical' })}
+        renderItem={({ item }) => <PopularMovieItem item={item} />}
         showsHorizontalScrollIndicator={false}
       />
     </View>
