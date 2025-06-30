@@ -1,4 +1,4 @@
-package com.awesomeproject
+package br.com.myapps.mymovies
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
